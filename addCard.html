@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Film</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      width: 90%;
+      max-width: 1000px;
+      background: #eee;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .form-side, .preview-side {
+      flex: 1 1 50%;
+      padding: 40px;
+    }
+    .form-side {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .form-side input,
+    .form-side select {
+      padding: 12px 15px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    .form-side input[type="submit"] {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .form-side input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+    .preview-side {
+      background-image: url('https://img.freepik.com/premium-photo/morskie-oko-tatry_1045114-186.jpg?semt=ais_hybrid&w=740');
+      background-size: cover;
+      background-position: center;
+      transition: background-image 0.3s ease;
+    }
+
+    @media (max-width: 768px) {
+      .form-side, .preview-side {
+        flex: 1 1 100%;
+        padding: 20px;
+      }
+      .preview-side {
+        height: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <form class="form-side">
+    <input type="text" placeholder="Mahsulot nomini kiriting" name="name" required>
+    <input type="text" placeholder="Mahsulot tavsifi" name="desc" required>
+    <input type="number" placeholder="Mahsulot narxi" name="price" required>
+    <select name="janr">
+      <option value="1">Elektr asboblar</option>
+      <option value="2">Suv nasoslar</option>
+      <option value="3">Elektr chiroqlar</option>
+      <option value="4">Kabel va simlar</option>
+    </select>
+    <input type="url" placeholder="Rasm URL manzili" id="img" name="img" required>
+    <input type="submit" value="Saqlash">
+  </form>
+  <div class="preview-side"></div>
+</div>
+  <script>
+$('#img').keyup((e)=>{
+  var img = $('#img').val()
+  $('.right').css('backgroundImage', `url('${img}')`)
+})
+
+$(document).submit(function (e) { 
+  e.preventDefault();
+  var name = $(e.target.name).val();
+  var desc = $(e.target.desc).val();
+  var janr = $(e.target.janr).val();
+  var url = $(e.target.img).val();
+  var price = $(e.target.price).val();
+  if(name.trim()!="" && desc.trim()!="" && janr.trim()!="" && url.trim()!=""){
+  Slide.push({
+    'id': Slide.length+1,
+    'name': name,
+    'info': desc,
+    'type': janr,
+    'img': url,
+    'price': price,
+  })
+  localStorage.setItem('Slide', JSON.stringify(Slide))
+  window.location.href = '/'
+  }else{
+    console.log('er')
+  }
+});
+
+  </script>
+  <script src="./db.js"></script>
+</body>
+</html>

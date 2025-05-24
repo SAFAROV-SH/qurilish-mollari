@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Film Info</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Bosh meynu</a>
+    </div>
+  </nav>
+
+  <div class="py-5 d-flex" style="width: 85%;margin: auto;margin-top: 50px;">
+    <div style="width: 50%;">
+      <img src="https://via.placeholder.com/800x400?text=No+Image" alt="Film Image" id="film-img" style="width: 80%;margin: auto;border: 1px solid gray;padding-right: 20px;">
+    </div>
+    <div style="width: 50%;">
+      <div class="card-body">
+        <h3 class="card-title" id="film-title">Film nomi</h3>
+        <p class="card-text" id="film-desc">Tavsif</p>
+        <span class="badge bg-secondary" id="film-janr">Janr</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const Slide = JSON.parse(localStorage.getItem('Slide')) || [];
+    const params = new URLSearchParams(window.location.search);
+    const id = parseInt(params.get("id"));
+
+    const film = Slide.find(f => f.id === id);
+    if (film) {
+      document.getElementById('film-img').src = film.img;
+      document.getElementById('film-title').textContent = film.name;
+      document.getElementById('film-desc').textContent = film.info;
+      document.getElementById('film-janr').textContent = film.price;
+    } else {
+      document.querySelector('.card-body').innerHTML = `
+        <h3 class="text-danger">Film topilmadi</h3>`;
+    }
+  </script>
+
+</body>
+</html>
