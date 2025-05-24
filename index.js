@@ -1,6 +1,6 @@
 $(document).ready((e)=>{
   if((window.location.href).includes("?id=")){
-    var url = (window.location.href).replace('http://127.0.0.1:5501/?id=', '');
+    var url = (window.location.href).replace('https://safarov-sh.github.io/qurilish-mollari/?id=', '');
     console.log(url)
     Slide.forEach(m=>{
       if(m.type==url){
